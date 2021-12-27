@@ -3,17 +3,51 @@ const path = require('path')
 const express = require('express')
 const hbs = require('express-handlebars')
 const db = require('./database/db')
+const session = require('express-session')
+const FileStore = require('session-file-store')(session)
+const flash = require('express-flash')
 
 
 const app = express()
 
-app.use(express.static(path.join(__dirname, 'public')))
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
-
 app.engine('handlebars', hbs.engine())
 app.set('view engine', 'handlebars')
 app.set('views', path.join(__dirname, 'views'))
+
+app.use(express.static(path.join(__dirname, 'public')))
+
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+
+app.use(session({
+  name: 'session',
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  store: new FileStore({
+    logFn: () => {},
+    path: path.join(require('os').tmpdir(), 'sessions'),  
+  }),
+  cookie: {
+    secure: false,
+    maxAge: 360000,
+    expires: new Date(Date.now() + 360000),
+    httpOnly: true,
+  }
+}))
+app.use(flash())
+app.use((req, res, next) => {
+  if (req.session.userId) {
+    res.locals.session = req.session
+  }
+
+  next()
+})
+
+
+app.get('/', (req, res) => {
+  res.render('home')
+})
 
 
 db.sync()
