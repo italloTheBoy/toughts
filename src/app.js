@@ -6,6 +6,8 @@ const db = require('./database/db')
 const session = require('express-session')
 const FileStore = require('session-file-store')(session)
 const flash = require('express-flash')
+const User = require('../src/models/User')
+const Tought = require('../src/models/Tought')
 
 
 const app = express()
@@ -50,11 +52,11 @@ app.get('/', (req, res) => {
 })
 
 
-db.sync()
+db.sync({ force: false })
   .then(() => {
     const port = process.env.PORT || 3000
     app.listen(port, () => {
-      console.log(`Server is running in http://localhost:${port}`)
+      console.log(`\nServer is running in http://localhost:${port}\n`)
     })
   })
   .catch(err => {

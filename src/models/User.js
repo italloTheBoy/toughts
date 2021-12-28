@@ -1,0 +1,25 @@
+const { DataTypes } = require('sequelize')
+
+const db = require('../database/db')
+
+
+const User = db.define('user', {
+  usernames: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    required: true,
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    required: true,
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    required: true,
+  }
+})
+
+
+module.exports = User
