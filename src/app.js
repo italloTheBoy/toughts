@@ -46,10 +46,14 @@ app.use((req, res, next) => {
   next()
 })
 
+const toughtRouter = require('./routes/toughtRouter')
+app.use('/tought', toughtRouter)
 
-app.get('/', (req, res) => {
-  res.render('home')
-})
+const authRouter = require('./routes/authRouter')
+app.use('/auth', authRouter)
+
+const globalRouter = require('./routes/globalRouter')
+app.use(globalRouter)
 
 
 db.sync({ force: false })
