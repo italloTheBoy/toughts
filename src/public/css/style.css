@@ -1,6 +1,6 @@
 * {
   font-family: Arial, Helvetica, sans-serif;
-  color: #fff;
+  color: #6C757D;
   margin: 0;
   padding: 0;
 }
@@ -29,6 +29,10 @@ header, main, footer {
   border-top: 1px solid #6C757D!important;
 }
 
+.border-bottom {
+border-bottom: 1px solid #6C757D!important;
+}
+
 .nav-link:hover{
   transition: 0.2s;
   color: #f6982d;
@@ -46,4 +50,14 @@ footer a:hover {
 
 .nav-link {
   color: #6C757D; 
+}
+
+legend {
+  text-align: center;
+  font-size: 2em;
+}
+
+.form-control {
+  border: 1px solid #6C757D;
+  color: #6C757D;
 }

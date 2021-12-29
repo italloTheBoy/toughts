@@ -50,7 +50,7 @@ const toughtRouter = require('./routes/toughtRouter')
 app.use('/tought', toughtRouter)
 
 const authRouter = require('./routes/authRouter')
-app.use('/auth', authRouter)
+app.use(authRouter)
 
 const globalRouter = require('./routes/globalRouter')
 app.use(globalRouter)
