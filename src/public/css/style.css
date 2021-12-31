@@ -25,6 +25,12 @@ header, main, footer {
   flex-shrink: 0;
 }
 
+.statusCode {
+  font-size: 10rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
 .alert-success {
   background-color: #2b4631;
   border-color: rgba(255, 255, 255, 0.233);

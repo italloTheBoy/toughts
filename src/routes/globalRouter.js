@@ -1,8 +1,11 @@
 const router = require('express').Router()
-toughtController = require('../controllers/toughtController')
+ToughtController = require('../controllers/toughtController')
+GlobalController = require('../controllers/GlobalController')
 
 
-router.get('/', toughtController.readAll)
+router.get('/', ToughtController.readAll)
+router.get('/500', GlobalController.serverError)
+router.get('/404', GlobalController.notFound)
 
 
 

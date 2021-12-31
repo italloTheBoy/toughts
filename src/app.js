@@ -55,6 +55,10 @@ app.use(authRouter)
 const globalRouter = require('./routes/globalRouter')
 app.use(globalRouter)
 
+app.use((req, res, next) => {
+  res.status(404).redirect('/404')
+})
+
 
 db.sync({ force: false })
   .then(() => {
