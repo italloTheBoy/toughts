@@ -25,12 +25,32 @@ header, main, footer {
   flex-shrink: 0;
 }
 
+.alert-success {
+  background-color: #2b4631;
+  border-color: rgba(255, 255, 255, 0.233);
+  color: rgba(255, 255, 255, 0.438);
+}
+
+.alert-danger {
+  background-color: #462b2b;
+  border-color: rgba(255, 255, 255, 0.233);
+  color: rgba(255, 255, 255, 0.438);
+}
+
 .border-top {
   border-top: 1px solid #6C757D!important;
 }
 
 .border-bottom {
 border-bottom: 1px solid #6C757D!important;
+}
+
+fieldset a {
+  color: #6C757D;
+}
+
+fieldset a:hover {
+  color: #6c757d71;
 }
 
 .nav-link:hover{
@@ -59,5 +79,9 @@ legend {
 
 .form-control {
   border: 1px solid #6C757D;
+  color: #6C757D;
+}
+
+.form-control:focus {
   color: #6C757D;
 }
