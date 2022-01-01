@@ -53,22 +53,29 @@ module.exports = class AuthController {
 
     if (err === true) return res.status(403).render('auth/register')
 
-
     const hash = await bcrypt.genSalt(15).then(salt => {
       return bcrypt.hash(password, salt)
     })
 
-    await User.create({
-      name,
-      email,
-      password: hash,
-    })
-    .catch(err => {
+    try {
+      const user = await User.create({
+        name,
+        email,
+        password: hash,
+      })
+      
+      req.session.userId = user.id
+      
+      req.flash('success', 'Usuário cadastrado com sucesso')
+  
+      req.session.save(() => {
+        res.redirect('/')
+      })
+    
+    } catch (err) {
       console.log(err)
+
       return res.status(500).redirect('/500')
-    })
-
-
-    return res.redirect('/')
+    }
   }
 }
