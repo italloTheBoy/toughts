@@ -1,0 +1,39 @@
+<form action="/login" method="post" class="container w-50">
+  <fieldset class="d-flex flex-column">
+    <legend class="border-bottom pb-2">Login</legend>
+
+    <div>
+      <label for="email" class="form-label mt-1">Email</label>
+      <input 
+        type="email" 
+        id="email" 
+        name="email" 
+        value="{{ email }}" 
+        placeholder="Insira seu email" 
+        class="form-control bg-transparent" 
+        required
+      >
+      {{#if messages.emailErr}}
+        <p class="form-text text-danger mb-0">- {{messages.emailErr}}</p>
+      {{/if}}
+    </div>
+
+    <div>
+      <label for="password" class="form-label mt-3">Senha</label>
+      <input
+        type="password" 
+        id="password" name="password" 
+        placeholder="Insira uma senha" 
+        class="form-control bg-transparent" 
+        required
+      >
+      {{#if messages.passwordErr}}
+        <p class="form-text text-danger mb-0">- {{messages.passwordErr}}</p>
+      {{/if}}
+    </div>
+
+    <button type="submit" class='mt-4 w-50 btn btn-outline-success align-self-center'>Registrar</button>
+
+    <a href="/register" class="text-center m-4">Não possui uma conta?</a>
+  </fieldset>
+</form>
