@@ -91,3 +91,8 @@ legend {
 .form-control:focus {
   color: #6C757D;
 }
+ 
+.bi-plus {
+  font-size: 5em;
+  color: #f6982d;
+}

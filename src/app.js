@@ -46,6 +46,7 @@ app.use((req, res, next) => {
   next()
 })
 
+
 const toughtRouter = require('./routes/toughtRouter')
 app.use('/tought', toughtRouter)
 
