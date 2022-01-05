@@ -54,7 +54,7 @@ module.exports = class toughtController {
     return res.render('tought/read')
   }
 
-  static async dashboard(req, res) {
+  static async readMyToughts(req, res) {
     const { userId } = req.session
 
     try {
@@ -85,6 +85,118 @@ module.exports = class toughtController {
       }
 
       return res.status(status).render('tought/dashboard', { tought })
+    }
+    catch (err) {
+      console.log(err)
+      return res.status(500).redirect('/500')
+    }
+  }
+
+  static async updateTought(req, res) {
+    const { id } = req.params 
+    const userId = req.session.userId
+    let status = 200
+    
+    try {
+      const tought = await Tought.findByPk(id, {
+        raw: true,
+        attributes: ['id', 'tought', 'userId']
+      }) 
+
+      if (!tought) {
+        req.flash(
+          'error',
+          'Pensamento não encontrado.'
+        )
+
+        status = 404
+      }
+
+      else if (tought.userId !== userId) {
+        req.flash(
+          'error',
+          'Você não pode editar este pensamento.'
+        )
+
+        status = 401
+      }
+
+
+      if (status !== 200) {
+        return req.session.save(() => {
+          res.status(status).redirect('/tought/dashboard')
+        })
+      }
+
+      return res.status(status).render('tought/update', { tought })
+    }
+    catch (err) {
+      console.log(err)
+      return res.status(500).redirect('/500')
+    }
+  }
+
+  static async updateToughtPost(req, res) {
+    const { id, tought } = req.body 
+    const userId = req.session.userId
+    let status = 200
+    
+    try {
+      const targetTought = await Tought.findByPk(id, {
+        raw: true,
+        attributes: ['tought', 'userId']
+      }) 
+
+      if (!targetTought) {
+        req.flash(
+          'error',
+          'Pensamento não encontrado.'
+        )
+
+        status = 404
+      }
+      else if (targetTought.userId !== userId) {
+        req.flash(
+          'error',
+          'Você não pode editar este pensamento.'
+        )
+
+        status = 401
+      }
+      else if (!tought || tought.trim() === '') {
+        req.flash(
+          'toughtErr',
+          'Insira um pensamento'
+        )
+
+        status = 403
+      }
+      else {
+        Tought.update({
+          tought: tought.trim(),
+        }, { where: { id } }) 
+
+        req.flash(
+          'success',
+          'Pensamento atualizado'
+        )
+      }
+
+
+      return req.session.save(() => {
+        if (status === 403) {
+          res.status(status).render('tought/update', { 
+            tought: {
+              id,
+              tought,
+            }
+          })
+        }
+        else {
+          res.status(status).redirect('/tought/dashboard')
+        }
+      })
+
     }
     catch (err) {
       console.log(err)

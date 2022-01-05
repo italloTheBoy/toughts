@@ -1,0 +1,25 @@
+<form action="/tought/update" method="post" class="container w-50">
+  <fieldset class="d-flex flex-column">
+    <legend class="border-bottom pb-2">Editar Pensamento</legend>
+
+    <input type="hidden" name="id" value="{{tought.id}}">
+
+    <div class="mb-3">
+      <label for="tought" class="form-label mt-1">Em que você está pensando?</label>
+
+      <textarea 
+        id="tought" 
+        name="tought"
+        class="form-control bg-transparent" 
+        rows="6"
+        required
+      >{{ tought.tought }}</textarea>
+
+      {{#if messages.toughtErr}}
+        <p class="form-text text-danger mb-0">- {{messages.toughtErr}}</p>
+      {{/if}}
+    </div>
+
+    <button type="submit" class='mt-4 w-50 btn btn-outline-success align-self-center'>Postar</button>
+  </fieldset>
+</form>
