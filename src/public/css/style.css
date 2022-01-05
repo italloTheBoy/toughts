@@ -43,6 +43,10 @@ header, main, footer {
   color: rgba(255, 255, 255, 0.438);
 }
 
+.border  {
+  border: 1px solid #6C757D!important;
+}
+
 .border-top {
   border-top: 1px solid #6C757D!important;
 }
@@ -59,10 +63,6 @@ fieldset a:hover {
   color: #6c757d71;
 }
 
-.nav-link:hover{
-  transition: 0.2s;
-  color: #f6982d;
-}
 
 footer a {
   text-decoration: none;
@@ -76,6 +76,25 @@ footer a:hover {
 
 .nav-link {
   color: #6C757D; 
+}
+
+.nav-link:hover{
+  transition: 0.2s;
+  color: #f6982d;
+}
+
+.dropdown-menu {
+  background-color: #212529; 
+}
+
+.dropdown-item {
+  color: #6C757D;
+  transition: all 0.1s
+}
+
+.dropdown-item:hover {
+  background-color: #212529; 
+  color: #f6982dc4;
 }
 
 legend {
@@ -92,7 +111,16 @@ legend {
   color: #6C757D;
 }
  
-.bi-plus {
-  font-size: 5em;
+.bi-plus-square {
+  font-size: 1.6em;
   color: #f6982d;
+  transition: all 0.1s
+}
+
+.bi-plus-square:hover {
+  color: #6C757D;
+}
+
+.bi-three-dots-vertical {
+  font-size: 1.3em;
 }

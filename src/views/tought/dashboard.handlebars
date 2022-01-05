@@ -1,6 +1,53 @@
 <div class="container w-75">
-  <header class="d-flex">
-    <h1 class="flex-grow">Dashboard</h1>
-    <a href="/tought/create" class="fs-4 bi bi-plus"></a>
+  <header class="d-flex border-bottom p-2">
+    <h1 class="me-auto mb-0">Dashboard</h1>
+    <a 
+      href="/tought/create" 
+      class="bi bi-plus-square align-self-center"
+      title="Novo Pensamento"
+    ></a>
   </header>
+
+  {{#each tought}}
+
+    <article class="d-flex border rounded mt-4 p-2">
+      <p class="p-1 mb-0 me-auto">{{ tought }}</p>
+      
+      <ul class="nav">
+        <li class="nav-item dropdown">
+          <a 
+            class="nav-link p-0 bi bi-three-dots-vertical" 
+            data-bs-toggle="dropdown" 
+            href="#" role="button" 
+            aria-expanded="false"
+          ></a>
+
+          <ul class="dropdown-menu">
+            <li>
+              <a href="#" class="align-self-top dropdown-item">Editar</a>
+            </li>
+
+            <li>
+              <form action="/tought/delete" method="post">
+
+                <input type="hidden" name="id" value="{{ id }}">
+                
+                <button class="dropdown-item">Excluir</button>
+
+              </form>
+            </li>
+          </ul>
+
+        </li>
+      </ul>
+    </article>
+
+  {{else}}
+  
+    <article class="border rounded m-auto mt-4 p-4 pt-2 pb-2 w-50">
+      <h1>Ops...</h1>
+      <p>Nenhum pensamento foi encontrado.</p
+    </article>
+    
+  {{/each}}
 </div>
