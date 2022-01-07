@@ -1,5 +1,7 @@
 const Tought = require('../models/Tought')
 const User = require('../models/User')
+const { Op } = require('sequelize')
+
 
 module.exports = class toughtController {
 
@@ -50,8 +52,75 @@ module.exports = class toughtController {
     }
   }
 
-  static readAll(req, res) {
-    return res.render('tought/read')
+  static async readAll(req, res) {
+    try {
+      const toughtRead = await Tought.findAll({
+        include: User,
+        attributes: ['tought']
+      })
+
+      let tought = toughtRead.map(
+        result => result.get({ 
+          plain: true
+        })
+      )
+
+      return res.status(200).render('tought/read', {
+        tought: tought.map(result => {
+          return {
+            tought: result.tought,
+            user: result.user.name,
+          }
+        })
+      })
+      
+    }
+    catch (err) {
+      console.log(err)
+      return res.status(500).redirect('/500')
+    }
+  } 
+
+  static async readWithSearch(req, res) {
+    const search = req.body.search ? req.body.search.trim() : ''
+    const order = req.body.order === 'old' ? 'ASC' : 'DESC'
+
+
+    if (search === '') {
+      return res.status(200).redirect('/')
+    }
+
+    try {
+      const toughtRead = await Tought.findAll({
+        include: User,
+        attributes: ['tought'],
+        where: {
+          tought: { [Op.like]: `%${search}%` }
+        },
+        order: [['createdAt', order]]
+      })
+
+      const tought = toughtRead.map(
+        result => result.get({ 
+          plain: true
+        })
+      )
+
+      return res.status(200).render('tought/read', {
+        search,
+        tought: tought.map(result => {
+          return {
+            tought: result.tought,
+            user: result.user.name,
+          }
+        })
+      })
+      
+    }
+    catch (err) {
+      console.log(err)
+      return res.status(500).redirect('/500')
+    }
   }
 
   static async readMyToughts(req, res) {

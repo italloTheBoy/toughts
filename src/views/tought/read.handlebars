@@ -1,1 +1,59 @@
-<h1>Hello World</h1>
+<div class="container w-75">
+  <header class="border-bottom p-2">
+    <h1 class="mb-0">Pensamentos</h1>
+  </header>
+
+  <section class="d-flex">
+    <form action="/tought/search" method="post" class="flex-fill"> 
+      <fieldset class="d-flex mt-4 pb-4">
+
+        <input 
+          class="form-control bg-dark" 
+          type="text" 
+          name="search" 
+          placeholder="Pesquise aqui..." 
+          value="{{ search }}"
+        >
+        <button class="ms-3 btn btn-outline-primary" type="submit">Pesquisar</button>
+
+      </fieldset>
+    </form>
+
+    <form action="/tought/search" method="post" class="align-self-center ms-2">
+      <input type="hidden" name="search" value="{{ search }}">
+      <input type="hidden" name="order" value="new">
+
+      <button type="submit" class="btn btn-outline-primary ps-1 pe-1 bi bi-arrow-up"></button>
+    </form>
+
+    <form action="/tought/search" method="post" class="align-self-center ms-2">
+      <input type="hidden" name="search" value="{{ search }}">
+      <input type="hidden" name="order" value="old">
+        
+      <button type="submit" class="btn btn-outline-primary ps-1 pe-1 bi bi-arrow-down"></button>
+    </form>
+
+  </section>
+
+  <section>
+    {{#each tought}}
+
+      <figure class="border rounded mt-4 p-2">
+        <blockquote class="blockquote">
+          <p>{{ tought }}</p>
+        </blockquote>
+        <figcaption class="m-0 blockquote-footer text-capitalize text-end">
+          <span>{{ user }}</span>
+        </figcaption>
+      </figure>
+
+    {{else}}
+
+      <article class="border rounded m-auto mt-2 p-4 pt-2 pb-2 w-50">
+        <h1>Ops...</h1>
+        <p>Nenhum pensamento foi encontrado.</p
+      </article>
+
+    {{/each}}
+  </section>
+</div>  
